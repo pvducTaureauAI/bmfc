@@ -1,0 +1,60 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: bmfc_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: bmfc_root_password
+      MYSQL_DATABASE: binh_minh_fc
+      MYSQL_USER: bmfc_user
+      MYSQL_PASSWORD: bmfc_password
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "mysqladmin",
+          "ping",
+          "-h",
+          "localhost",
+          "-u",
+          "root",
+          "-p$$MYSQL_ROOT_PASSWORD",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - bmfc_network
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bmfc_app
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: "mysql://bmfc_user:bmfc_password@mysql:3306/binh_minh_fc"
+      JWT_SECRET: "bmfc-production-secret-key-change-this"
+      JWT_EXPIRES_IN: "15m"
+      NODE_ENV: "production"
+    ports:
+      - "3000:3000"
+    networks:
+      - bmfc_network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  bmfc_network:
+    driver: bridge

@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  role      Role     @default(GUEST)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Member {
+  id          Int       @id @default(autoincrement())
+  name        String
+  phone       String?
+  email       String?
+  joinDate    DateTime  @default(now())
+  status      MemberStatus @default(ACTIVE)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  monthlyFees MonthlyFee[]
+  penalties   Penalty[]
+
+  @@map("members")
+}
+
+model MonthlyFee {
+  id        Int      @id @default(autoincrement())
+  memberId  Int
+  month     Int      // 1-12
+  year      Int
+  amount    Decimal  @db.Decimal(10, 2)
+  isPaid    Boolean  @default(false)
+  paidDate  DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  member    Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@unique([memberId, month, year])
+  @@map("monthly_fees")
+}
+
+model Penalty {
+  id        Int      @id @default(autoincrement())
+  memberId  Int
+  date      DateTime @default(now())
+  amount    Decimal  @db.Decimal(10, 2)
+  reason    String?  @db.Text
+  isPaid    Boolean  @default(false)
+  paidDate  DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  member    Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+
+  @@map("penalties")
+}
+
+model Expense {
+  id        Int      @id @default(autoincrement())
+  amount    Decimal  @db.Decimal(10, 2)
+  reason    String   @db.Text
+  date      DateTime @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("expenses")
+}
+
+enum Role {
+  ADMIN
+  GUEST
+}
+
+enum MemberStatus {
+  ACTIVE
+  INACTIVE
+}
