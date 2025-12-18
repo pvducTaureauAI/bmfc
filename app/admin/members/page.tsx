@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { handleAuthError } from "@/lib/handleAuthError";
+import { formatCurrency } from "@/lib/formatCurrency";
 
 interface Member {
   id: number;
@@ -50,6 +52,7 @@ export default function AdminMembersPage() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         });
+        if (handleAuthError(res)) return;
         if (res.ok) {
           alert("Cập nhật thành công!");
         }
@@ -60,6 +63,7 @@ export default function AdminMembersPage() {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(formData),
         });
+        if (handleAuthError(res)) return;
         if (res.ok) {
           alert("Thêm thành công!");
         }
@@ -87,6 +91,7 @@ export default function AdminMembersPage() {
     if (!confirm("Bạn có chắc muốn xóa?")) return;
     try {
       const res = await fetch(`/api/members/${id}`, { method: "DELETE" });
+      if (handleAuthError(res)) return;
       if (res.ok) {
         alert("Xóa thành công!");
         fetchMembers();

@@ -2,11 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { authMiddleware } from "@/lib/auth";
 
-// GET total fund summary
+// GET total fund summary (Public - no auth required)
 export async function GET(req: NextRequest) {
-  const auth = await authMiddleware(req);
-  if (!auth.authorized) return auth.response;
-
   try {
     // Tổng thu từ quỹ tháng (đã nộp)
     const monthlyFeesTotal = await prisma.monthlyFee.aggregate({

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { formatCurrency } from "@/lib/formatCurrency";
 
 interface Member {
   id: number;
@@ -69,7 +70,7 @@ export default function GuestPenaltiesPage() {
                     {penalty.member.name}
                   </td>
                   <td className="px-4 py-3 text-red-600 font-semibold">
-                    {penalty.amount.toLocaleString("vi-VN")} đ
+                    {formatCurrency(penalty.amount)} đ
                   </td>
                   <td className="px-4 py-3 text-gray-800">
                     {penalty.reason || "-"}

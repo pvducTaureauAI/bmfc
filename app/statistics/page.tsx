@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { formatCurrency } from "@/lib/formatCurrency";
 
 interface Member {
   id: number;
@@ -125,25 +126,25 @@ export default function GuestStatisticsPage() {
             <div className="bg-green-500 text-white p-4 rounded-lg shadow">
               <h3 className="font-semibold mb-1">Tổng Thu</h3>
               <p className="text-2xl font-bold">
-                {data.summary.totalIncome.toLocaleString("vi-VN")} đ
+                {formatCurrency(data.summary.totalIncome)} đ
               </p>
             </div>
             <div className="bg-blue-500 text-white p-4 rounded-lg shadow">
               <h3 className="font-semibold mb-1">Quỹ tháng</h3>
               <p className="text-2xl font-bold">
-                {data.summary.monthlyFeesIncome.toLocaleString("vi-VN")} đ
+                {formatCurrency(data.summary.monthlyFeesIncome)} đ
               </p>
             </div>
             <div className="bg-orange-500 text-white p-4 rounded-lg shadow">
               <h3 className="font-semibold mb-1">Phạt</h3>
               <p className="text-2xl font-bold">
-                {data.summary.penaltiesIncome.toLocaleString("vi-VN")} đ
+                {formatCurrency(data.summary.penaltiesIncome)} đ
               </p>
             </div>
             <div className="bg-red-500 text-white p-4 rounded-lg shadow">
               <h3 className="font-semibold mb-1">Tổng Chi</h3>
               <p className="text-2xl font-bold">
-                {data.summary.totalExpense.toLocaleString("vi-VN")} đ
+                {formatCurrency(data.summary.totalExpense)} đ
               </p>
             </div>
           </div>
@@ -152,7 +153,7 @@ export default function GuestStatisticsPage() {
             <h3 className="text-xl font-semibold mb-2">Chênh lệch</h3>
             <p className="text-4xl font-bold">
               {data.summary.balance >= 0 ? "+" : ""}
-              {data.summary.balance.toLocaleString("vi-VN")} đ
+              {formatCurrency(data.summary.balance)} đ
             </p>
           </div>
 
@@ -169,7 +170,7 @@ export default function GuestStatisticsPage() {
                   >
                     <div className="font-semibold">{fee.member.name}</div>
                     <div className="text-green-600 font-semibold">
-                      +{fee.amount.toLocaleString("vi-VN")} đ
+                      +{formatCurrency(fee.amount)} đ
                     </div>
                     <div className="text-gray-500 text-xs">
                       {new Date(fee.paidDate).toLocaleDateString("vi-VN")}
@@ -191,7 +192,7 @@ export default function GuestStatisticsPage() {
                   >
                     <div className="font-semibold">{penalty.member.name}</div>
                     <div className="text-green-600 font-semibold">
-                      +{penalty.amount.toLocaleString("vi-VN")} đ
+                      +{formatCurrency(penalty.amount)} đ
                     </div>
                     <div className="text-gray-600 text-xs">
                       {penalty.reason || "Không ghi chú"}
@@ -215,7 +216,7 @@ export default function GuestStatisticsPage() {
                     className="border-b pb-2 text-sm text-gray-700"
                   >
                     <div className="text-red-600 font-semibold">
-                      -{expense.amount.toLocaleString("vi-VN")} đ
+                      -{formatCurrency(expense.amount)} đ
                     </div>
                     <div className="text-gray-600 text-xs">
                       {expense.reason}

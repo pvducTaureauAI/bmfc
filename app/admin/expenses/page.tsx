@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { handleAuthError } from "@/lib/handleAuthError";
+import { formatCurrency } from "@/lib/formatCurrency";
 
 interface Expense {
   id: number;
@@ -48,6 +50,7 @@ export default function AdminExpensesPage() {
           amount: parseFloat(formData.amount),
         }),
       });
+      if (handleAuthError(res)) return;
       if (res.ok) {
         alert("Thêm chi tiêu thành công!");
         setFormData({
@@ -154,7 +157,7 @@ export default function AdminExpensesPage() {
                   {new Date(expense.date).toLocaleDateString("vi-VN")}
                 </td>
                 <td className="px-4 py-3 text-red-600 font-semibold">
-                  -{expense.amount.toLocaleString("vi-VN")} đ
+                  -{formatCurrency(expense.amount)} đ
                 </td>
                 <td className="px-4 py-3 text-gray-800">{expense.reason}</td>
               </tr>

@@ -2,11 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { authMiddleware } from "@/lib/auth";
 
-// GET all members
+// GET all members (Public - no auth required)
 export async function GET(req: NextRequest) {
-  const auth = await authMiddleware(req);
-  if (!auth.authorized) return auth.response;
-
   try {
     const members = await prisma.member.findMany({
       orderBy: { createdAt: "desc" },

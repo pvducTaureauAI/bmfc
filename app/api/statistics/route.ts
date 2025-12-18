@@ -2,11 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { authMiddleware } from "@/lib/auth";
 
-// GET statistics with date range
+// GET statistics with date range (Public - no auth required)
 export async function GET(req: NextRequest) {
-  const auth = await authMiddleware(req);
-  if (!auth.authorized) return auth.response;
-
   try {
     const { searchParams } = new URL(req.url);
     const from = searchParams.get("from");

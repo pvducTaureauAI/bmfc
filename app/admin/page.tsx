@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { formatCurrency } from "@/lib/formatCurrency";
 import Link from "next/link";
 
 interface FundSummary {
@@ -43,19 +44,19 @@ export default function AdminDashboard() {
         <div className="bg-green-500 text-white p-6 rounded-lg shadow">
           <h3 className="text-lg font-semibold mb-2">Tổng Thu</h3>
           <p className="text-3xl font-bold">
-            {fund?.totalIncome.toLocaleString("vi-VN")} đ
+            {formatCurrency(fund?.totalIncome || 0)} đ
           </p>
         </div>
         <div className="bg-red-500 text-white p-6 rounded-lg shadow">
           <h3 className="text-lg font-semibold mb-2">Tổng Chi</h3>
           <p className="text-3xl font-bold">
-            {fund?.totalExpense.toLocaleString("vi-VN")} đ
+            {formatCurrency(fund?.totalExpense || 0)} đ
           </p>
         </div>
         <div className="bg-blue-500 text-white p-6 rounded-lg shadow">
           <h3 className="text-lg font-semibold mb-2">Quỹ hiện tại</h3>
           <p className="text-3xl font-bold">
-            {fund?.balance.toLocaleString("vi-VN")} đ
+            {formatCurrency(fund?.balance || 0)} đ
           </p>
         </div>
       </div>

@@ -33,3 +33,29 @@ export async function PUT(
     );
   }
 }
+
+// DELETE monthly fee (Admin only)
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const auth = await authMiddleware(req, "ADMIN");
+  if (!auth.authorized) return auth.response;
+
+  try {
+    const { id: idParam } = await params;
+    const id = parseInt(idParam);
+
+    await prisma.monthlyFee.delete({
+      where: { id },
+    });
+
+    return NextResponse.json({ message: "Monthly fee deleted successfully" });
+  } catch (error) {
+    console.error("Delete monthly fee error:", error);
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
+  }
+}

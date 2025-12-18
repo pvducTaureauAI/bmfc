@@ -1,39 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { formatCurrency } from "@/lib/formatCurrency";
+import { useState } from "react";
 
-interface FundSummary {
-  totalIncome: number;
-  totalExpense: number;
-  balance: number;
-}
-
-export default function Home() {
-  const [fund, setFund] = useState<FundSummary | null>(null);
-  const [loading, setLoading] = useState(true);
+export default function PublicPagesLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  useEffect(() => {
-    fetchFund();
-  }, []);
-
-  const fetchFund = async () => {
-    try {
-      const res = await fetch("/api/fund");
-      if (res.ok) {
-        const data = await res.json();
-        setFund(data);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (loading) return <div className="text-center py-8">Đang tải...</div>;
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -180,107 +155,7 @@ export default function Home() {
           )}
         </div>
       </nav>
-
-      <div className="max-w-7xl mx-auto p-4 md:p-8">
-        <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 text-gray-800">
-          Tổng quan Quỹ
-        </h2>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
-          <div className="bg-green-500 text-white p-4 md:p-6 rounded-lg shadow">
-            <h3 className="text-base md:text-lg font-semibold mb-2">
-              Tổng Thu
-            </h3>
-            <p className="text-2xl md:text-3xl font-bold">
-              {formatCurrency(fund?.totalIncome || 0)} đ
-            </p>
-          </div>
-          <div className="bg-red-500 text-white p-4 md:p-6 rounded-lg shadow">
-            <h3 className="text-base md:text-lg font-semibold mb-2">
-              Tổng Chi
-            </h3>
-            <p className="text-2xl md:text-3xl font-bold">
-              {formatCurrency(fund?.totalExpense || 0)} đ
-            </p>
-          </div>
-          <div className="bg-blue-500 text-white p-4 md:p-6 rounded-lg shadow">
-            <h3 className="text-base md:text-lg font-semibold mb-2">
-              Quỹ hiện tại
-            </h3>
-            <p className="text-2xl md:text-3xl font-bold">
-              {formatCurrency(fund?.balance || 0)} đ
-            </p>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
-          <Link
-            href="/members"
-            className="bg-white p-4 md:p-6 rounded-lg shadow hover:shadow-lg transition"
-          >
-            <h3 className="text-lg md:text-xl font-semibold mb-2 text-gray-800">
-              👥 Danh sách Members
-            </h3>
-            <p className="text-sm md:text-base text-gray-600">
-              Xem tất cả thành viên
-            </p>
-          </Link>
-
-          <Link
-            href="/penalties"
-            className="bg-white p-4 md:p-6 rounded-lg shadow hover:shadow-lg transition"
-          >
-            <h3 className="text-lg md:text-xl font-semibold mb-2 text-gray-800">
-              ⚠️ Phạt hôm nay
-            </h3>
-            <p className="text-sm md:text-base text-gray-600">
-              Xem danh sách phạt
-            </p>
-          </Link>
-
-          <Link
-            href="/monthly-fees"
-            className="bg-white p-4 md:p-6 rounded-lg shadow hover:shadow-lg transition"
-          >
-            <h3 className="text-lg md:text-xl font-semibold mb-2 text-gray-800">
-              💰 Quỹ tháng
-            </h3>
-            <p className="text-sm md:text-base text-gray-600">
-              Xem danh sách nộp quỹ
-            </p>
-          </Link>
-
-          <Link
-            href="/fund"
-            className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
-          >
-            <h3 className="text-xl font-semibold mb-2 text-gray-800">
-              💵 Tổng quỹ
-            </h3>
-            <p className="text-gray-600">Xem chi tiết quỹ</p>
-          </Link>
-
-          <Link
-            href="/debts"
-            className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition border-2 border-orange-300"
-          >
-            <h3 className="text-xl font-semibold mb-2 text-gray-800">
-              🔴 Danh sách Nợ
-            </h3>
-            <p className="text-gray-600">Xem ai đang nợ phạt và quỹ</p>
-          </Link>
-
-          <Link
-            href="/statistics"
-            className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition"
-          >
-            <h3 className="text-xl font-semibold mb-2 text-gray-800">
-              📊 Thống kê
-            </h3>
-            <p className="text-gray-600">Xem thống kê thu chi</p>
-          </Link>
-        </div>
-      </div>
+      <main className="max-w-7xl mx-auto px-4 py-4 md:py-8">{children}</main>
     </div>
   );
 }

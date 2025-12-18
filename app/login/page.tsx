@@ -29,7 +29,7 @@ export default function LoginPage() {
         if (data.user.role === "ADMIN") {
           router.push("/admin");
         } else {
-          router.push("/guest");
+          router.push("/");
         }
       } else {
         setError(data.error || "Login failed");

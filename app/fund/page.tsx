@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { formatCurrency } from "@/lib/formatCurrency";
 
 interface FundSummary {
   totalIncome: number;
@@ -44,20 +45,20 @@ export default function GuestFundPage() {
             <div className="flex justify-between">
               <span className="text-gray-600">Quỹ tháng:</span>
               <span className="text-green-600 font-semibold">
-                +{fund?.monthlyFeesIncome.toLocaleString("vi-VN")} đ
+                +{formatCurrency(fund?.monthlyFeesIncome || 0)} đ
               </span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-600">Phạt:</span>
               <span className="text-green-600 font-semibold">
-                +{fund?.penaltiesIncome.toLocaleString("vi-VN")} đ
+                +{formatCurrency(fund?.penaltiesIncome || 0)} đ
               </span>
             </div>
             <div className="border-t pt-3">
               <div className="flex justify-between">
                 <span className="font-semibold text-gray-800">Tổng thu:</span>
                 <span className="text-green-600 font-bold text-lg">
-                  {fund?.totalIncome.toLocaleString("vi-VN")} đ
+                  {formatCurrency(fund?.totalIncome || 0)} đ
                 </span>
               </div>
             </div>
@@ -70,7 +71,7 @@ export default function GuestFundPage() {
             <div className="flex justify-between">
               <span className="text-gray-600">Tổng chi:</span>
               <span className="text-red-600 font-semibold">
-                -{fund?.totalExpense.toLocaleString("vi-VN")} đ
+                -{formatCurrency(fund?.totalExpense || 0)} đ
               </span>
             </div>
           </div>
@@ -80,11 +81,11 @@ export default function GuestFundPage() {
       <div className="bg-linear-to-r from-blue-500 to-blue-600 text-white p-8 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold mb-4">💰 Quỹ hiện tại</h2>
         <p className="text-5xl font-bold">
-          {fund?.balance.toLocaleString("vi-VN")} đ
+          {formatCurrency(fund?.balance || 0)} đ
         </p>
         <p className="mt-4 text-blue-100">
-          = Thu ({fund?.totalIncome.toLocaleString("vi-VN")} đ) - Chi (
-          {fund?.totalExpense.toLocaleString("vi-VN")} đ)
+          = Thu ({formatCurrency(fund?.totalIncome || 0)} đ) - Chi (
+          {formatCurrency(fund?.totalExpense || 0)} đ)
         </p>
       </div>
     </div>
