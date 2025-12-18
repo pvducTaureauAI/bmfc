@@ -16,7 +16,7 @@ if [ -d "prisma/migrations" ] && [ "$(ls -A prisma/migrations)" ]; then
   npx prisma migrate deploy --schema=./prisma/schema.prisma
 else
   echo "No migrations found, pushing schema directly..."
-  npx prisma db push --schema=./prisma/schema.prisma --accept-data-loss
+  npx prisma db push --schema=./prisma/schema.prisma --skip-generate
 fi
 
 # Check if database is empty (first run)
