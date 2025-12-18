@@ -48,9 +48,9 @@ RUN chmod +x docker-entrypoint.sh
 # Need to run as root for entrypoint script, then switch to nextjs
 USER root
 
-EXPOSE 3000
+EXPOSE 6789
 
-ENV PORT=3000
+ENV PORT=6789
 ENV HOSTNAME="0.0.0.0"
 
 ENTRYPOINT ["./docker-entrypoint.sh"]

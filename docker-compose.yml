@@ -47,7 +47,7 @@ services:
       JWT_EXPIRES_IN: "15m"
       NODE_ENV: "production"
     ports:
-      - "3000:3000"
+      - "6789:6789"
     networks:
       - bmfc_network
 
