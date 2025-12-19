@@ -11,58 +11,61 @@ export default function PublicPagesLayout({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <nav className="bg-white shadow-md">
+    <div className="min-h-screen">
+      <nav className="glass sticky top-0 z-50 shadow-xl border-b border-white/20">
         <div className="max-w-7xl mx-auto px-4 py-4">
           <div className="flex justify-between items-center">
             <Link
               href="/"
-              className="text-xl md:text-2xl font-bold text-blue-600"
+              className="flex items-center gap-2 text-xl md:text-2xl font-bold hover:scale-105 transition-transform"
             >
-              ⚽ Bình Minh FC
+              <span className="text-3xl">⚽</span>
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Bình Minh FC
+              </span>
             </Link>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex gap-4 xl:gap-6 items-center">
+            <div className="hidden lg:flex gap-2 xl:gap-4 items-center">
               <Link
                 href="/members"
-                className="text-gray-700 hover:text-blue-600 transition font-medium text-sm xl:text-base"
+                className="text-gray-700 hover:text-blue-600 transition-all font-medium text-sm xl:text-base px-3 py-2 rounded-lg hover:bg-white/50"
               >
                 Members
               </Link>
               <Link
                 href="/penalties"
-                className="text-gray-700 hover:text-blue-600 transition font-medium text-sm xl:text-base"
+                className="text-gray-700 hover:text-orange-600 transition-all font-medium text-sm xl:text-base px-3 py-2 rounded-lg hover:bg-white/50"
               >
                 Phạt
               </Link>
               <Link
                 href="/monthly-fees"
-                className="text-gray-700 hover:text-blue-600 transition font-medium text-sm xl:text-base"
+                className="text-gray-700 hover:text-green-600 transition-all font-medium text-sm xl:text-base px-3 py-2 rounded-lg hover:bg-white/50"
               >
                 Quỹ tháng
               </Link>
               <Link
                 href="/fund"
-                className="text-gray-700 hover:text-blue-600 transition font-medium text-sm xl:text-base"
+                className="text-gray-700 hover:text-purple-600 transition-all font-medium text-sm xl:text-base px-3 py-2 rounded-lg hover:bg-white/50"
               >
                 Tổng quỹ
               </Link>
               <Link
                 href="/debts"
-                className="text-gray-700 hover:text-blue-600 transition font-medium text-sm xl:text-base"
+                className="text-gray-700 hover:text-red-600 transition-all font-medium text-sm xl:text-base px-3 py-2 rounded-lg hover:bg-white/50"
               >
                 Nợ
               </Link>
               <Link
                 href="/statistics"
-                className="text-gray-700 hover:text-blue-600 transition font-medium text-sm xl:text-base"
+                className="text-gray-700 hover:text-indigo-600 transition-all font-medium text-sm xl:text-base px-3 py-2 rounded-lg hover:bg-white/50"
               >
                 Thống kê
               </Link>
               <Link
                 href="/login"
-                className="bg-blue-600 text-white px-4 xl:px-6 py-2 rounded-lg hover:bg-blue-700 transition font-semibold text-sm xl:text-base"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 xl:px-6 py-2 rounded-xl hover:shadow-lg hover:scale-105 transition-all font-semibold text-sm xl:text-base"
               >
                 🔑 Đăng nhập
               </Link>
@@ -155,7 +158,9 @@ export default function PublicPagesLayout({
           )}
         </div>
       </nav>
-      <main className="max-w-7xl mx-auto px-4 py-4 md:py-8">{children}</main>
+      <main className="max-w-7xl mx-auto px-4 py-4 md:py-8 animate-fade-in">
+        {children}
+      </main>
     </div>
   );
 }

@@ -14,19 +14,23 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <nav className="bg-blue-600 text-white shadow-lg">
+    <div className="min-h-screen">
+      <nav className="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-2xl sticky top-0 z-50">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-4">
-            <h1 className="text-lg md:text-2xl font-bold">
-              ⚽ Bình Minh FC - Admin
+            <h1 className="text-lg md:text-2xl font-bold flex items-center gap-2 hover:scale-105 transition-transform">
+              <span className="text-3xl">⚽</span>
+              <span>Bình Minh FC</span>
+              <span className="hidden md:inline text-white/80 text-base font-normal">
+                - Admin
+              </span>
             </h1>
             <div className="flex items-center gap-2">
               <button
                 onClick={handleLogout}
-                className="bg-red-500 hover:bg-red-600 px-3 md:px-4 py-2 rounded transition text-sm md:text-base"
+                className="bg-gradient-to-r from-red-500 to-rose-600 hover:from-red-600 hover:to-rose-700 px-3 md:px-4 py-2 rounded-lg transition-all hover:shadow-lg hover:scale-105 text-sm md:text-base font-semibold"
               >
-                Đăng xuất
+                🚪 Đăng xuất
               </button>
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -60,82 +64,84 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex space-x-4 pb-4">
+          <div className="hidden md:flex gap-2 pb-4">
             <Link
               href="/admin"
-              className="hover:underline text-sm md:text-base"
+              className="px-4 py-2 rounded-lg hover:bg-white/20 transition-all text-sm md:text-base font-medium backdrop-blur-sm"
             >
-              Dashboard
+              📊 Dashboard
             </Link>
             <Link
               href="/admin/members"
-              className="hover:underline text-sm md:text-base"
+              className="px-4 py-2 rounded-lg hover:bg-white/20 transition-all text-sm md:text-base font-medium backdrop-blur-sm"
             >
-              Members
+              👥 Members
             </Link>
             <Link
               href="/admin/monthly-fees"
-              className="hover:underline text-sm md:text-base"
+              className="px-4 py-2 rounded-lg hover:bg-white/20 transition-all text-sm md:text-base font-medium backdrop-blur-sm"
             >
-              Quỹ tháng
+              💰 Quỹ tháng
             </Link>
             <Link
               href="/admin/penalties"
-              className="hover:underline text-sm md:text-base"
+              className="px-4 py-2 rounded-lg hover:bg-white/20 transition-all text-sm md:text-base font-medium backdrop-blur-sm"
             >
-              Phạt
+              ⚠️ Phạt
             </Link>
             <Link
               href="/admin/expenses"
-              className="hover:underline text-sm md:text-base"
+              className="px-4 py-2 rounded-lg hover:bg-white/20 transition-all text-sm md:text-base font-medium backdrop-blur-sm"
             >
-              Chi tiêu
+              💸 Chi tiêu
             </Link>
           </div>
 
           {/* Mobile Navigation */}
           {isMenuOpen && (
-            <div className="md:hidden pb-4 space-y-2">
+            <div className="md:hidden pb-4 space-y-2 animate-slide-in">
               <Link
                 href="/admin"
-                className="block hover:bg-blue-700 px-3 py-2 rounded"
+                className="block hover:bg-white/20 px-3 py-2 rounded-lg backdrop-blur-sm"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Dashboard
+                📊 Dashboard
               </Link>
               <Link
                 href="/admin/members"
-                className="block hover:bg-blue-700 px-3 py-2 rounded"
+                className="block hover:bg-white/20 px-3 py-2 rounded-lg backdrop-blur-sm"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Members
+                👥 Members
               </Link>
               <Link
                 href="/admin/monthly-fees"
-                className="block hover:bg-blue-700 px-3 py-2 rounded"
+                className="block hover:bg-white/20 px-3 py-2 rounded-lg backdrop-blur-sm"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Quỹ tháng
+                💰 Quỹ tháng
               </Link>
               <Link
                 href="/admin/penalties"
-                className="block hover:bg-blue-700 px-3 py-2 rounded"
+                className="block hover:bg-white/20 px-3 py-2 rounded-lg backdrop-blur-sm"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Phạt
+                ⚠️ Phạt
               </Link>
               <Link
                 href="/admin/expenses"
-                className="block hover:bg-blue-700 px-3 py-2 rounded"
+                className="block hover:bg-white/20 px-3 py-2 rounded-lg backdrop-blur-sm"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Chi tiêu
+                💸 Chi tiêu
               </Link>
             </div>
           )}
         </div>
       </nav>
-      <main className="container mx-auto px-4 py-4 md:py-8">{children}</main>
+      <main className="container mx-auto px-4 py-4 md:py-8 animate-fade-in">
+        {children}
+      </main>
     </div>
   );
 }
